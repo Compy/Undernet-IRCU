@@ -281,6 +281,8 @@ struct Channel {
   char               chname[1];	   /**< Dynamically allocated string of the 
 				     * channel name
 				     */
+
+  unsigned int	     marker;    /** Channel marker */
 };
 
 /** Information about a /list in progress */
@@ -449,5 +451,9 @@ extern struct Ban *make_ban(const char *banstr);
 extern struct Ban *find_ban(struct Client *cptr, struct Ban *banlist);
 extern int apply_ban(struct Ban **banlist, struct Ban *newban, int free);
 extern void free_ban(struct Ban *ban);
+
+extern int common_chan_count(struct Client *a, struct Client *b, int max);
+
+extern unsigned int get_channel_marker(void);
 
 #endif /* INCLUDED_channel_h */

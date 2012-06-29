@@ -264,3 +264,22 @@ client_report_privs(struct Client *to, struct Client *client)
 
   return 0;
 }
+
+
+/*
+ * A little spin-marking utility to tell us which clients we've processed and which not
+ */
+unsigned int get_client_marker(void)
+{
+  static unsigned int marker = 0;
+  if (!++marker)
+  {
+    struct Client *cptr;
+    for (cptr=GlobalClientList; cptr; cptr=cli_next(cptr))
+    {
+      cli_marker(cptr) = 0;
+    }
+    marker++;
+  }
+  return marker;
+}

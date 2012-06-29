@@ -40,7 +40,7 @@ MKDIR = mkdir
 TOUCH = touch
 GREP = grep
 LEX = flex
-YACC = yacc
+YACC = byacc
 ENGINE_C = engine_epoll.c engine_poll.c
 
 

@@ -3647,3 +3647,52 @@ void RevealDelayedJoinIfNeeded(struct Client *sptr, struct Channel *chptr)
   if (member && IsDelayedJoin(member))
     RevealDelayedJoin(member);
 }
+
+/* Returns the number of common channels between two users, upto max */
+int common_chan_count(struct Client *a, struct Client *b, int max)
+{
+  int count = 0;
+  struct Membership *cptr;
+  struct User *ua, *ub;
+  unsigned int marker = get_client_marker();
+
+  ua = cli_user(a);
+  ub = cli_user(b);
+
+  if (ua->joined > ub->joined)
+  {
+    struct User *swapee = ua;
+    ua = ub;
+    ub = swapee;
+  }
+
+  for (cptr=ua->channel; cptr; cptr=cptr->next_channel)
+  {
+    cptr->channel->marker = marker;
+  }
+
+  for (cptr=ub->channel; cptr; cptr=cptr->next_channel)
+  {
+    if (cptr->channel->marker == marker) {
+      count++;
+      if (max && (count >= max))
+        return count;
+    }
+  }
+  return count;
+}
+
+unsigned int get_channel_marker(void)
+{
+  static unsigned int marker = 0;
+  if (!++marker)
+  {
+    struct Channel *cptr;
+    for (cptr=GlobalChannelList; cptr; cptr=cptr->next)
+    {
+      cptr->marker = 0;
+    }
+    marker++;
+  }
+  return marker;
+}

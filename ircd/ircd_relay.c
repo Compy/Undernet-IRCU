@@ -262,6 +262,20 @@ void relay_directed_message(struct Client* sptr, char* name, char* server, const
   if (host)
     *--host = '%';
 
+  /* +R check, if the target is +R and we're not +r or opered, then deny */
+  if (IsAccountOnly(acptr) && !IsAccount(sptr) && !IsOper(sptr) &&
+      (acptr != sptr)) {
+    send_reply(sptr, ERR_ACCOUNTONLY, "PM", cli_name(acptr));
+    return;
+  }
+
+  /* Common chans only check. If the user is +q (common chans only), deny the private message */
+  if (sptr != acptr && IsCommonChansOnly(acptr) && !IsAnOper(sptr) && !common_chan_count(acptr, sptr, 1)) {
+    send_reply(sptr, ERR_COMMONCHANSONLY, cli_name(acptr), "PM");
+    return;
+  }
+
+
   if (!(is_silenced(sptr, acptr)))
     sendcmdto_one(sptr, CMD_PRIVATE, acptr, "%s :%s", name, text);
 }
@@ -311,6 +325,19 @@ void relay_directed_notice(struct Client* sptr, char* name, char* server, const 
   if (host)
     *--host = '%';
 
+  /* +R check, if target is +R and we're not +r (or opered) then deny */
+  if (IsAccountOnly(acptr) && !IsAccount(sptr) && !IsOper(sptr) &&
+      (acptr != sptr)) {
+    send_reply(sptr, ERR_ACCOUNTONLY, "WHISPER", cli_name(acptr));
+    return;
+  }
+
+  /* Common channel check. If the user is +q and the sender is not on a common channel, deny */
+  if (sptr != acptr && IsCommonChansOnly(acptr) && !IsAnOper(sptr) && !common_chan_count(acptr, sptr, 1)) {
+    send_reply(sptr, ERR_COMMONCHANSONLY, cli_name(acptr), "WHISPER");
+    return;
+  }
+
   if (!(is_silenced(sptr, acptr)))
     sendcmdto_one(sptr, CMD_NOTICE, acptr, "%s :%s", name, text);
 }
@@ -339,6 +366,18 @@ void relay_private_message(struct Client* sptr, const char* name, const char* te
        check_target_limit(sptr, acptr, cli_name(acptr), 0)) ||
       is_silenced(sptr, acptr))
     return;
+
+  /* +R check, if the target is +R and we're not +r (or opered) then deny */
+  if (IsAccountOnly(acptr) && !IsAccount(sptr) && !IsOper(sptr) && (acptr != sptr)) {
+    send_reply(sptr, ERR_ACCOUNTONLY, "PM", cli_name(acptr));
+    return;
+  }
+
+  /* Common channel check. If the target is +q and we're not on a common channel, deny */
+  if (sptr != acptr && IsCommonChansOnly(acptr) && !IsAnOper(sptr) && !common_chan_count(acptr, sptr, 1)) {
+    send_reply(sptr, ERR_COMMONCHANSONLY, cli_name(acptr), "PM");
+    return;
+  }
 
   /*
    * send away message if user away
@@ -375,6 +414,19 @@ void relay_private_notice(struct Client* sptr, const char* name, const char* tex
        check_target_limit(sptr, acptr, cli_name(acptr), 0)) ||
       is_silenced(sptr, acptr))
     return;
+
+  /* +R check, if target is +R and we're not +r (or opered) then deny */
+  if (IsAccountOnly(acptr) && !IsAccount(sptr) && !IsOper(sptr) && (acptr != sptr)) {
+    send_reply(sptr, ERR_ACCOUNTONLY, "WHISPER", cli_name(acptr));
+    return;
+  }
+
+  if (sptr != acptr && IsCommonChansOnly(acptr) && !IsAnOper(sptr) && !common_chan_count(acptr, sptr, 1)) {
+    send_reply(sptr, ERR_COMMONCHANSONLY, cli_name(acptr), "WHISPER");
+    return;
+  }
+
+
   /*
    * deliver the message
    */

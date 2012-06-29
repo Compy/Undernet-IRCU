@@ -117,7 +117,7 @@
 #define LPATH "ircd.log"
 
 /* Maximum number of network connections */
-#define MAXCONNECTIONS 1020
+#define MAXCONNECTIONS 4092
 
 /* Define if you have BSD non-blocking sockets. */
 /* #undef NBLOCK_BSD */

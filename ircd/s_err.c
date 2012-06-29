@@ -534,17 +534,17 @@ static Numeric replyTable[] = {
 /* 250 */
   { RPL_STATSCONN, ":Highest connection count: %u (%u clients)", "250" },
 /* 251 */
-  { RPL_LUSERCLIENT, ":There are %u users and %u invisible on %u servers", "251" },
+  { RPL_LUSERCLIENT, ":U:%u I:%u S:%u", "251" },
 /* 252 */
-  { RPL_LUSEROP, "%u :operator(s) online", "252" },
+  { RPL_LUSEROP, "%u :Staff Online", "252" },
 /* 253 */
   { RPL_LUSERUNKNOWN, "%u :unknown connection(s)", "253" },
 /* 254 */
-  { RPL_LUSERCHANNELS, "%u :channels formed", "254" },
+  { RPL_LUSERCHANNELS, "%u :rooms open", "254" },
 /* 255 */
-  { RPL_LUSERME, ":I have %u clients and %u servers", "255" },
+  { RPL_LUSERME, ":C:%u S:%u", "255" },
 /* 256 */
-  { RPL_ADMINME, ":Administrative info about %s", "256" },
+  { RPL_ADMINME, ":Server Admin Info for %s", "256" },
 /* 257 */
   { RPL_ADMINLOC1, ":%s", "257" },
 /* 258 */
@@ -642,9 +642,9 @@ static Numeric replyTable[] = {
 /* 304 */
   { 0 },
 /* 305 */
-  { RPL_UNAWAY, ":You are no longer marked as being away", "305" },
+  { RPL_UNAWAY, ":Set status as 'Available'", "305" },
 /* 306 */
-  { RPL_NOWAWAY, ":You have been marked as being away", "306" },
+  { RPL_NOWAWAY, ":Set status as 'Away'", "306" },
 /* 307 */
   { 0 },
 /* 308 */
@@ -658,7 +658,7 @@ static Numeric replyTable[] = {
 /* 312 */
   { RPL_WHOISSERVER, "%s %s :%s", "312" },
 /* 313 */
-  { RPL_WHOISOPERATOR, "%s :is an IRC Operator", "313" },
+  { RPL_WHOISOPERATOR, "%s :is an ElyteIM Staff Member", "313" },
 /* 314 */
   { RPL_WHOWASUSER, "%s %s %s * :%s", "314" },
 /* 315 */
@@ -668,17 +668,17 @@ static Numeric replyTable[] = {
 /* 317 */
   { RPL_WHOISIDLE, "%s %ld %ld :seconds idle, signon time", "317" },
 /* 318 */
-  { RPL_ENDOFWHOIS, "%s :End of /WHOIS list.", "318" },
+  { RPL_ENDOFWHOIS, "%s :End of user profile", "318" },
 /* 319 */
   { RPL_WHOISCHANNELS, "%s :%s", "319" },
 /* 320 */
   { 0 },
 /* 321 */
-  { RPL_LISTSTART, "Channel :Users  Name", "321" },
+  { RPL_LISTSTART, "Room :Users  Name", "321" },
 /* 322 */
   { RPL_LIST, "%s %u :%s", "322" },
 /* 323 */
-  { RPL_LISTEND, ":End of /LIST", "323" },
+  { RPL_LISTEND, ":End of Room list", "323" },
 /* 324 */
   { RPL_CHANNELMODEIS, "%s %s %s", "324" },
 /* 325 */
@@ -768,7 +768,7 @@ static Numeric replyTable[] = {
 /* 367 */
   { RPL_BANLIST, "%s %s %s %Tu", "367" },
 /* 368 */
-  { RPL_ENDOFBANLIST, "%s :End of Channel Ban List", "368" },
+  { RPL_ENDOFBANLIST, "%s :End of Room Ban List", "368" },
 /* 369 */
   { RPL_ENDOFWHOWAS, "%s :End of WHOWAS", "369" },
 /* 370 */
@@ -794,7 +794,7 @@ static Numeric replyTable[] = {
 /* 380 */
   { 0 },
 /* 381 */
-  { RPL_YOUREOPER, ":You are now an IRC Operator", "381" },
+  { RPL_YOUREOPER, ":You are now authenticated as an ElyteIM Staff Member", "381" },
 /* 382 */
   { RPL_REHASHING, "%s :Rehashing", "382" },
 /* 383 */
@@ -824,7 +824,7 @@ static Numeric replyTable[] = {
 /* 395 */
   { 0 },
 /* 396 */
-  { RPL_HOSTHIDDEN, "%s :is now your hidden host", "396" },
+  { RPL_HOSTHIDDEN, "%s", "396" },
 /* 397 */
   { 0 },
 /* 398 */
@@ -838,11 +838,11 @@ static Numeric replyTable[] = {
 /* 402 */
   { ERR_NOSUCHSERVER, "%s :No such server", "402" },
 /* 403 */
-  { ERR_NOSUCHCHANNEL, "%s :No such channel", "403" },
+  { ERR_NOSUCHCHANNEL, "%s :No such room", "403" },
 /* 404 */
-  { ERR_CANNOTSENDTOCHAN, "%s :Cannot send to channel", "404" },
+  { ERR_CANNOTSENDTOCHAN, "%s :Cannot send to room", "404" },
 /* 405 */
-  { ERR_TOOMANYCHANNELS, "%s :You have joined too many channels", "405" },
+  { ERR_TOOMANYCHANNELS, "%s :You have joined too many rooms", "405" },
 /* 406 */
   { ERR_WASNOSUCHNICK, "%s :There was no such nickname", "406" },
 /* 407 */
@@ -906,7 +906,7 @@ static Numeric replyTable[] = {
 /* 436 */
   { ERR_NICKCOLLISION, "%s :Nickname collision KILL", "436" },
 /* 437 */
-  { ERR_BANNICKCHANGE, "%s :Cannot change nickname while banned on channel or channel is moderated", "437" },
+  { ERR_BANNICKCHANGE, "%s :Cannot change nickname while banned on room or room is moderated", "437" },
 /* 438 */
   { ERR_NICKTOOFAST, "%s :Nick change too fast. Please wait %d seconds.", "438" },
 /* 439 */
@@ -914,11 +914,11 @@ static Numeric replyTable[] = {
 /* 440 */
   { ERR_SERVICESDOWN, "%s :Services are currently unavailable.", "440" },
 /* 441 */
-  { ERR_USERNOTINCHANNEL, "%s %s :They aren't on that channel", "441" },
+  { ERR_USERNOTINCHANNEL, "%s %s :They aren't in that room", "441" },
 /* 442 */
-  { ERR_NOTONCHANNEL, "%s :You're not on that channel", "442" },
+  { ERR_NOTONCHANNEL, "%s :You're not in that room", "442" },
 /* 443 */
-  { ERR_USERONCHANNEL, "%s %s :is already on channel", "443" },
+  { ERR_USERONCHANNEL, "%s %s :is already in room", "443" },
 /* 444 */
   { 0 },
 /* 445 */
@@ -966,7 +966,7 @@ static Numeric replyTable[] = {
 /* 466 */
   { ERR_YOUWILLBEBANNED, "", "466" },
 /* 467 */
-  { ERR_KEYSET, "%s :Channel key already set", "467" },
+  { ERR_KEYSET, "%s :Room password already set", "467" },
 /* 468 */
   { ERR_INVALIDUSERNAME, 0, "468" },
 /* 469 */
@@ -974,43 +974,43 @@ static Numeric replyTable[] = {
 /* 470 */
   { 0 },
 /* 471 */
-  { ERR_CHANNELISFULL, "%s :Cannot join channel (+l)", "471" },
+  { ERR_CHANNELISFULL, "%s :Cannot join room (+l)", "471" },
 /* 472 */
   { ERR_UNKNOWNMODE, "%c :is unknown mode char to me", "472" },
 /* 473 */
-  { ERR_INVITEONLYCHAN, "%s :Cannot join channel (+i)", "473" },
+  { ERR_INVITEONLYCHAN, "%s :Cannot join room (+i)", "473" },
 /* 474 */
-  { ERR_BANNEDFROMCHAN, "%s :Cannot join channel (+b)", "474" },
+  { ERR_BANNEDFROMCHAN, "%s :Cannot join room (+b)", "474" },
 /* 475 */
-  { ERR_BADCHANNELKEY, "%s :Cannot join channel (+k)", "475" },
+  { ERR_BADCHANNELKEY, "%s :Cannot join room (+k)", "475" },
 /* 476 */
-  { ERR_BADCHANMASK, "%s :Bad Channel Mask", "476" },
+  { ERR_BADCHANMASK, "%s :Bad Room Mask", "476" },
 /* 477 */
-  { ERR_NEEDREGGEDNICK, "%s :Cannot join channel (+r): this channel requires authentication -- you can obtain an account from %s", "477" },
+  { ERR_NEEDREGGEDNICK, "%s :Cannot join room (+r): this room requires authentication -- you can obtain an account from %s", "477" },
 /* 478 */
-  { ERR_BANLISTFULL, "%s %s :Channel ban/ignore list is full", "478" },
+  { ERR_BANLISTFULL, "%s %s :Room ban/ignore list is full", "478" },
 /* 479 */
-  { ERR_BADCHANNAME, "%s :Cannot join channel (access denied on this server)", "479" },
+  { ERR_BADCHANNAME, "%s :Cannot join room (access denied on this server)", "479" },
 /* 480 */
   { 0 },
 /* 481 */
   { ERR_NOPRIVILEGES, ":Permission Denied: Insufficient privileges", "481" },
 /* 482 */
-  { ERR_CHANOPRIVSNEEDED, "%s :You're not channel operator", "482" },
+  { ERR_CHANOPRIVSNEEDED, "%s :You're not a room operator", "482" },
 /* 483 */
   { ERR_CANTKILLSERVER, ":You cant kill a server!", "483" },
 /* 484 */
   { ERR_ISCHANSERVICE, "%s %s :Cannot kill, kick or deop a network service", "484" },
 /* 485 */
-  { 0 },
+  { ERR_COMMONCHANSONLY, "You must be in a common room with %s in order to %s them", "485" },
 /* 486 */
-  { 0 },
+  { ERR_ACCOUNTONLY, "You are not authorized to %s %s", "486" },
 /* 487 */
   { 0 },
 /* 488 */
   { 0 },
 /* 489 */
-  { ERR_VOICENEEDED, "%s :You're neither voiced nor channel operator", "489" },
+  { ERR_VOICENEEDED, "%s :You're neither voiced nor room operator", "489" },
 /* 490 */
   { 0 },
 /* 491 */
@@ -1080,7 +1080,7 @@ static Numeric replyTable[] = {
 /* 523 */
   { 0 },
 /* 524 */
-  { ERR_QUARANTINED, "%s :Channel is quarantined : %s", "524" },
+  { ERR_QUARANTINED, "%s :Room is quarantined : %s", "524" },
 /* 525 */
   { ERR_INVALIDKEY, "%s :Key is not well-formed", "525" },
 /* 526 */

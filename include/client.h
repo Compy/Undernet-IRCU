@@ -165,6 +165,8 @@ enum Flag
                                        don't display channels in /whois */
     FLAG_DEBUG,                     /**< send global debug/anti-hack info */
     FLAG_ACCOUNT,                   /**< account name has been set */
+    FLAG_ACCOUNTONLY,		    /**< Only allow registered account holders to send PMs/notices */
+    FLAG_COMMONCHANSONLY,           /**< Only allow messages from users on common chans */
     FLAG_HIDDENHOST,                /**< user's host is hidden */
     FLAG_LAST_FLAG,                 /**< number of flags */
     FLAG_LOCAL_UMODES = FLAG_LOCOP, /**< First local mode flag */
@@ -579,6 +581,10 @@ struct Client {
 #define IsAccount(x)            HasFlag(x, FLAG_ACCOUNT)
 /** Return non-zero if the client has set mode +x (hidden host). */
 #define IsHiddenHost(x)         HasFlag(x, FLAG_HIDDENHOST)
+/** Return a non-zero if the client only accepts messages from clients with an account. */
+#define IsAccountOnly(x)	HasFlag(x, FLAG_ACCOUNTONLY)
+/** Return a non-zero if the client only accepts messages from others in common channels. */
+#define IsCommonChansOnly(x)	HasFlag(x, FLAG_COMMONCHANSONLY)
 /** Return non-zero if the client has an active PING request. */
 #define IsPingSent(x)           HasFlag(x, FLAG_PINGSENT)
 
@@ -625,6 +631,10 @@ struct Client {
 #define SetAccount(x)           SetFlag(x, FLAG_ACCOUNT)
 /** Mark a client as having mode +x (hidden host). */
 #define SetHiddenHost(x)        SetFlag(x, FLAG_HIDDENHOST)
+/** Mark a client as only accepting messages from users with accounts. */
+#define SetAccountOnly(x)	SetFlag(x, FLAG_ACCOUNTONLY)
+/** Mark a client as having mode +q (common chans only). */
+#define SetCommonChansOnly(x)	SetFlag(x, FLAG_COMMONCHANSONLY)
 /** Mark a client as having a pending PING. */
 #define SetPingSent(x)          SetFlag(x, FLAG_PINGSENT)
 
@@ -662,6 +672,10 @@ struct Client {
 #define ClearPingSent(x)        ClrFlag(x, FLAG_PINGSENT)
 /** Clear the client's HUB flag. */
 #define ClearHub(x)             ClrFlag(x, FLAG_HUB)
+/** Clear the +R (account only) flag from client */
+#define ClearAccountOnly(x)	ClrFlag(x, FLAG_ACCOUNTONLY);
+/** Clear mode +q (common chans only) from client */
+#define ClearCommonChansOnly(x) ClrFlag(x, FLAG_COMMONCHANSONLY);
 
 /* free flags */
 #define FREEFLAG_SOCKET	0x0001	/**< socket needs to be freed */
@@ -735,6 +749,8 @@ extern void client_add_sendq(struct Connection* con,
 			     struct Connection** con_p);
 extern void client_set_privs(struct Client *client, struct ConfItem *oper);
 extern int client_report_privs(struct Client* to, struct Client* client);
+
+extern unsigned int get_client_marker(void);
 
 #endif /* INCLUDED_client_h */
 

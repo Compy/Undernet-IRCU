@@ -446,7 +446,7 @@ Copyright (C) 2009 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/home/compy/ircu2.10.12.14'
+ac_pwd='/home/compy/Undernet-IRCU'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 AWK='mawk'
@@ -619,7 +619,7 @@ S["SYMLINK"]="ircd"
 S["INSTALL_RULE"]="install-with-symlink"
 S["ENGINE_C"]="engine_epoll.c engine_poll.c"
 S["YFLAGS"]=""
-S["YACC"]="yacc"
+S["YACC"]="byacc"
 S["LEXLIB"]="-lfl"
 S["LEX_OUTPUT_ROOT"]="lex.yy"
 S["LEX"]="flex"
@@ -642,13 +642,13 @@ S["LDFLAGS"]=""
 S["CFLAGS"]="-g -O2"
 S["CC"]="gcc"
 S["host_os"]="linux-gnu"
-S["host_vendor"]="unknown"
-S["host_cpu"]="armv6l"
-S["host"]="armv6l-unknown-linux-gnu"
+S["host_vendor"]="pc"
+S["host_cpu"]="i686"
+S["host"]="i686-pc-linux-gnu"
 S["build_os"]="linux-gnu"
-S["build_vendor"]="unknown"
-S["build_cpu"]="armv6l"
-S["build"]="armv6l-unknown-linux-gnu"
+S["build_vendor"]="pc"
+S["build_cpu"]="i686"
+S["build"]="i686-pc-linux-gnu"
 S["target_alias"]=""
 S["host_alias"]=""
 S["build_alias"]=""
@@ -778,7 +778,7 @@ D["SPATH"]=" \"/home/compy/ircu/bin/ircd\""
 D["DPATH"]=" \"/home/compy/ircu/lib\""
 D["CPATH"]=" \"ircd.conf\""
 D["LPATH"]=" \"ircd.log\""
-D["MAXCONNECTIONS"]=" 1020"
+D["MAXCONNECTIONS"]=" 4092"
   for (key in D) D_is_set[key] = 1
   FS = ""
 }

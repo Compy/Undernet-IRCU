@@ -843,7 +843,7 @@ void vsendto_opmask_butone(struct Client *one, unsigned int mask,
    */
   vd.vd_format = pattern;
   va_copy(vd.vd_args, vl);
-  mb = msgq_make(0, ":%s " MSG_NOTICE " * :*** Notice -- %v", cli_name(&me),
+  mb = msgq_make(0, ":%s " MSG_NOTICE " * :[STAFF NOTICE] %v", cli_name(&me),
 		 &vd);
 
   for (; opslist; opslist = opslist->next)

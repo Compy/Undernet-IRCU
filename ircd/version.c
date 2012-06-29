@@ -25,8 +25,8 @@
 #include "patchlevel.h"
 #include "patchlist.h"
 
-const char *generation = "17";
-const char *creation = "Fri Jun 29 2012 at 03:42:44 BST";
+const char *generation = "37";
+const char *creation = "Fri Jun 29 2012 at 15:06:22 EDT";
 const char *version = BASE_VERSION RELEASE PATCHLEVEL PATCHLIST;
 
 const char *infotext[] = {
@@ -59,9 +59,9 @@ const char *infotext[] = {
     "",
     "Sources:",
     "[ IPcheck.c: 87d428226dfeda71528b5905a70b96d1  ]",
-    "[ channel.c: c4a7235251201bdde89927bf5fe78b14  ]",
+    "[ channel.c: 707ae055429cebdee9efab9433e78832  ]",
     "[ class.c: b450a181973c5a269b6607f233a556a3  ]",
-    "[ client.c: bf53ccc4aa5fad7a5d84d4f17df5a4c1  ]",
+    "[ client.c: 48287e754a9a01d22da6457cb24d4def  ]",
     "[ convert-conf.c: a4fbbce0362d7aad72676fac328f7435  ]",
     "[ crule.c: 22588754cb2a3b7bea9223895246174a  ]",
     "[ dbuf.c: 826a8de9dccab926e579be95bc060569  ]",
@@ -86,7 +86,7 @@ const char *infotext[] = {
     "[ ircd_log.c: ba6f63a12dfa367a2199ff153e5a9b79  ]",
     "[ ircd_md5.c: fd667d6dd3000cc615faaac4e931b1c5  ]",
     "[ ircd_parser.y: f5cd1949caf394f165c041a04047a36b  ]",
-    "[ ircd_relay.c: 6f2bd743c4ac5ff6313560959036ceea  ]",
+    "[ ircd_relay.c: 58d06eafaa056f35568247c1a3caad82  ]",
     "[ ircd_reply.c: b415a823573cfa3f2b4d1f9829ac100a  ]",
     "[ ircd_res.c: 9b369026eb7a618324102d98dbcdbbf8  ]",
     "[ ircd_reslib.c: b33f0829cb188afce3312ba84260545e  ]",
@@ -132,7 +132,7 @@ const char *infotext[] = {
     "[ m_names.c: 16ec8197d50193cf5b3a80815207a213  ]",
     "[ m_nick.c: a423bf101203d84a4bc7c92d7645128e  ]",
     "[ m_notice.c: 55b8318e54fb91ccf093cb21e238600a  ]",
-    "[ m_oper.c: 411c5e7ec30e6be8a2a9984544e71c8e  ]",
+    "[ m_oper.c: 1ccba0614688060c3557ca7834550026  ]",
     "[ m_opmode.c: c4b1c6d37762c202479193e695c80651  ]",
     "[ m_part.c: ad2eff18bd76b3c0508dfe7571a8aca6  ]",
     "[ m_pass.c: 51594f882eefda03fc156de92ce84f6a  ]",
@@ -187,13 +187,13 @@ const char *infotext[] = {
     "[ s_bsd.c: d8744dd4bd582005071e08c352441d08  ]",
     "[ s_conf.c: 16a39e1967b0908ab63c1e9faabac65e  ]",
     "[ s_debug.c: a4ca7f2df0e0a9e7d0d2b917de8cca11  ]",
-    "[ s_err.c: adf74a8d4e7127d35bfa95d2f7ade216  ]",
+    "[ s_err.c: b32b4adb4c43769faa96983c95779317  ]",
     "[ s_misc.c: 15883e94182c0e0e160e6a35a286ed2b  ]",
     "[ s_numeric.c: 049289d31c2061b004444f7094141d35  ]",
     "[ s_serv.c: 3cbd2a7c77da8be73b9702ddb7696cb5  ]",
     "[ s_stats.c: d0875b7e94d59504b60a7ff51d929bda  ]",
-    "[ s_user.c: 76203241208bbba977d5bb52b253a030  ]",
-    "[ send.c: 4d3857f6304d69107d20ff72e895cd7d  ]",
+    "[ s_user.c: de0bb20b9c6c3709bb7235f27cbcb48d  ]",
+    "[ send.c: c33892ca0797022d66aa4a6207566d21  ]",
     "[ table_gen.c: b303cb594f3e297a8946b05580e2ff59  ]",
     "[ umkpasswd.c: 6314d5bcf31fde2fe42d5c23573bd0c7  ]",
     "[ uping.c: 92d25ecfe4501ffc6280034e682c31da  ]",
@@ -205,9 +205,9 @@ const char *infotext[] = {
     "Headers:",
     "[ IPcheck.h: ec2f49ce4331ac470cbabc01d4ac38fe  ]",
     "[ capab.h: 59d754e633bbc1c155ddff825a4be9a6  ]",
-    "[ channel.h: 3f389e4beb68db1096c15145236e344d  ]",
+    "[ channel.h: b9194538f00cd2029f80aa5d5821b0f5  ]",
     "[ class.h: fa545f4db1ed367717a16e45961bf86b  ]",
-    "[ client.h: d5d5a517eb2f5a77d2f0afa0d12eb09f  ]",
+    "[ client.h: cf9ae0db52edada0bfea858c70585d57  ]",
     "[ crule.h: cfca78395dc5ef64c639bd7d2d057ddd  ]",
     "[ dbuf.h: 8ae3e9fd1aae24f4dbe02f5966404d21  ]",
     "[ destruct_event.h: 9d2cf6688987e8501f3931c6d2836f2c  ]",
@@ -243,7 +243,7 @@ const char *infotext[] = {
     "[ motd.h: a32cf315fc495555e90fe2ee29e6f7e3  ]",
     "[ msg.h: 6af934ffa755a319d84781c11baf7a62  ]",
     "[ msgq.h: 87632c3527e85b8b976e6eecedbbce31  ]",
-    "[ numeric.h: 94c095e3f105588f8a4e2e91ddc6e7ae  ]",
+    "[ numeric.h: f8c40bbb50abbc27d7ac0ea449dec749  ]",
     "[ numnicks.h: dc35cb9ba7729bf317d8590ca84275d9  ]",
     "[ opercmds.h: 94708db9f4ebcaa3c6b85532b0759120  ]",
     "[ packet.h: 85d28b3e40040545703c563b7e186c89  ]",

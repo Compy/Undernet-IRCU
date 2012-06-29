@@ -477,6 +477,12 @@ int register_user(struct Client *cptr, struct Client *sptr)
       FlagSet(&flags, FLAG_ACCOUNT);
     else
       FlagClr(&flags, FLAG_ACCOUNT);
+
+
+    /* Set up default user modes */
+    sendcmdto_one(sptr, CMD_MODE, cptr, "%s %s", cli_name(sptr), "+x");
+
+
     client_set_privs(sptr, NULL);
     send_umode(cptr, sptr, &flags, ALL_UMODES);
     if ((cli_snomask(sptr) != SNO_DEFAULT) && HasFlag(sptr, FLAG_SERVNOTICE))
@@ -499,7 +505,9 @@ static const struct UserMode {
   { FLAG_CHSERV,      'k' },
   { FLAG_DEBUG,       'g' },
   { FLAG_ACCOUNT,     'r' },
-  { FLAG_HIDDENHOST,  'x' }
+  { FLAG_HIDDENHOST,  'x' },
+  { FLAG_ACCOUNTONLY, 'R' },
+  { FLAG_COMMONCHANSONLY, 'q' }
 };
 
 /** Length of #userModeList. */
@@ -574,6 +582,11 @@ int set_nick_name(struct Client* cptr, struct Client* sptr,
      * banned.  If so, do not allow the nick change to occur.
      */
     if (MyUser(sptr)) {
+
+      /* We don't allow nick changes on this network */
+      return send_reply(sptr, ERR_NICKNAMEINUSE, parv[1]);
+
+
       const char* channel_name;
       struct Membership *member;
       if ((channel_name = find_no_nickchange_channel(sptr))) {
@@ -1084,6 +1097,18 @@ int set_user_mode(struct Client *cptr, struct Client *sptr, int parc,
 	}
 	/* There is no -r */
 	break;
+      case 'R':
+        if (what == MODE_ADD)
+          SetAccountOnly(sptr);
+        else
+          ClearAccountOnly(sptr);
+        break;
+      case 'q':
+        if (what == MODE_ADD)
+          SetCommonChansOnly(sptr);
+        else
+          ClearCommonChansOnly(sptr);
+        break;
       default:
         send_reply(sptr, ERR_UMODEUNKNOWNFLAG, *m);
         break;
