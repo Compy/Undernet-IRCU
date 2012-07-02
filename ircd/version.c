@@ -25,8 +25,8 @@
 #include "patchlevel.h"
 #include "patchlist.h"
 
-const char *generation = "50";
-const char *creation = "Mon Jul 2 2012 at 09:02:52 EDT";
+const char *generation = "52";
+const char *creation = "Mon Jul 2 2012 at 09:17:54 EDT";
 const char *version = BASE_VERSION RELEASE PATCHLEVEL PATCHLIST;
 
 const char *infotext[] = {
@@ -192,7 +192,7 @@ const char *infotext[] = {
     "[ s_numeric.c: 049289d31c2061b004444f7094141d35  ]",
     "[ s_serv.c: 3cbd2a7c77da8be73b9702ddb7696cb5  ]",
     "[ s_stats.c: d0875b7e94d59504b60a7ff51d929bda  ]",
-    "[ s_user.c: de0bb20b9c6c3709bb7235f27cbcb48d  ]",
+    "[ s_user.c: 011938604d5f828dd847f0b177ed8ffd  ]",
     "[ send.c: c33892ca0797022d66aa4a6207566d21  ]",
     "[ table_gen.c: b303cb594f3e297a8946b05580e2ff59  ]",
     "[ umkpasswd.c: 6314d5bcf31fde2fe42d5c23573bd0c7  ]",

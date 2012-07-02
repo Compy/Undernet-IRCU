@@ -479,10 +479,6 @@ int register_user(struct Client *cptr, struct Client *sptr)
       FlagClr(&flags, FLAG_ACCOUNT);
 
 
-    /* Set up default user modes */
-    sendcmdto_one(sptr, CMD_MODE, cptr, "%s %s", cli_name(sptr), "+x");
-
-
     client_set_privs(sptr, NULL);
     send_umode(cptr, sptr, &flags, ALL_UMODES);
     if ((cli_snomask(sptr) != SNO_DEFAULT) && HasFlag(sptr, FLAG_SERVNOTICE))
