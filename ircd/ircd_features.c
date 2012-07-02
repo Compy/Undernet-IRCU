@@ -250,6 +250,9 @@ typedef void (*feat_report_call)(struct Client* sptr, int marked);
 #define FEAT_INT    0x0001	/**< set if entry contains an integer value */
 #define FEAT_BOOL   0x0002	/**< set if entry contains a boolean value */
 #define FEAT_STR    0x0003	/**< set if entry contains a string value */
+#define FEAT_ALIAS  0x0004      /**< set if entry is alias for another entry */
+#define FEAT_DEP    0x0005      /**< set if entry is deprecated */
+#define FEAT_UINT   0x0006      /**< set if entry contains an unsigned value */
 #define FEAT_MASK   0x000f	/**< possible value types */
 
 #define FEAT_MARK   0x0010	/**< set if entry has been changed */
@@ -261,6 +264,9 @@ typedef void (*feat_report_call)(struct Client* sptr, int marked);
 #define FEAT_NODISP 0x0400	/**< feature must never be displayed */
 
 #define FEAT_READ   0x1000	/**< feature is read-only (for now, perhaps?) */
+
+/** Extract just the feature type from a feature descriptor */
+#define feat_type(feat)		((feat->flags & FEAT_MASK)
 
 /** Declare a feature with custom behavior. */
 #define F_N(type, flags, set, reset, get, notify, unmark, mark, report)	      \
@@ -325,6 +331,9 @@ static struct FeatureDesc {
   F_B(LOCAL_CHANNELS, 0, 1, 0),
   F_B(TOPIC_BURST, 0, 0, 0),
   F_B(DISABLE_GLINES, 0, 0, 0),
+  F_B(AUTOCHANMODES, 0, 0, 0),
+  F_S(AUTOCHANMODES_LIST, FEAT_CASE | FEAT_NULL, 0, 0),
+
 
   /* features that probably should not be touched */
   F_I(KILLCHASETIMELIMIT, 0, 30, 0),

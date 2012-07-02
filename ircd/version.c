@@ -25,8 +25,8 @@
 #include "patchlevel.h"
 #include "patchlist.h"
 
-const char *generation = "37";
-const char *creation = "Fri Jun 29 2012 at 15:06:22 EDT";
+const char *generation = "50";
+const char *creation = "Mon Jul 2 2012 at 09:02:52 EDT";
 const char *version = BASE_VERSION RELEASE PATCHLEVEL PATCHLIST;
 
 const char *infotext[] = {
@@ -59,7 +59,7 @@ const char *infotext[] = {
     "",
     "Sources:",
     "[ IPcheck.c: 87d428226dfeda71528b5905a70b96d1  ]",
-    "[ channel.c: 707ae055429cebdee9efab9433e78832  ]",
+    "[ channel.c: ebe239758099845e6fe640b72bff138c  ]",
     "[ class.c: b450a181973c5a269b6607f233a556a3  ]",
     "[ client.c: 48287e754a9a01d22da6457cb24d4def  ]",
     "[ convert-conf.c: a4fbbce0362d7aad72676fac328f7435  ]",
@@ -81,7 +81,7 @@ const char *infotext[] = {
     "[ ircd_crypt_plain.c: 05f407aca6a5de7677bebb1ad33180e5  ]",
     "[ ircd_crypt_smd5.c: c54689931fb7e18098cfdafb352ae3bc  ]",
     "[ ircd_events.c: 125d2fb06e2f9d761b864e5cf53b07c3  ]",
-    "[ ircd_features.c: 5fbab20583f1b98a423405b3fa2ed777  ]",
+    "[ ircd_features.c: 7613ad5722fa55a762d0d74fccb15023  ]",
     "[ ircd_lexer.l: 39b4008e320bc03660c276f956c810a3  ]",
     "[ ircd_log.c: ba6f63a12dfa367a2199ff153e5a9b79  ]",
     "[ ircd_md5.c: fd667d6dd3000cc615faaac4e931b1c5  ]",
@@ -205,7 +205,7 @@ const char *infotext[] = {
     "Headers:",
     "[ IPcheck.h: ec2f49ce4331ac470cbabc01d4ac38fe  ]",
     "[ capab.h: 59d754e633bbc1c155ddff825a4be9a6  ]",
-    "[ channel.h: b9194538f00cd2029f80aa5d5821b0f5  ]",
+    "[ channel.h: 721badd10036d5cdf4996880717dff71  ]",
     "[ class.h: fa545f4db1ed367717a16e45961bf86b  ]",
     "[ client.h: cf9ae0db52edada0bfea858c70585d57  ]",
     "[ crule.h: cfca78395dc5ef64c639bd7d2d057ddd  ]",
@@ -224,7 +224,7 @@ const char *infotext[] = {
     "[ ircd_crypt_smd5.h: c843f3b6fcfe255d1c939aa1bd7a45de  ]",
     "[ ircd_defs.h: 750c83f8d530f88dac47dff4c6f8e7c2  ]",
     "[ ircd_events.h: fc8ecd24e9f80739737b53feb6c3630f  ]",
-    "[ ircd_features.h: 5d1a920e15126e1b242d017141e1592c  ]",
+    "[ ircd_features.h: f4a516dd58042df81e4667d7e585d868  ]",
     "[ ircd_handler.h: 00e029c07483e8415b527e912841b5d8  ]",
     "[ ircd_log.h: f451b7d89e0e4d9f4d5b33f7eb41216a  ]",
     "[ ircd_md5.h: 9a03f7967ef865a833829556ce2b1531  ]",

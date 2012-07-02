@@ -274,6 +274,7 @@ struct Channel {
   struct SLink*      invites;	   /**< List of invites on this channel */
   struct Ban*        banlist;      /**< List of bans on this channel */
   struct Mode        mode;	   /**< This channels mode */
+  unsigned int	     marker;
   char               topic[TOPICLEN + 1]; /**< Channels topic */
   char               topic_nick[NICKLEN + 1]; /**< Nick of the person who set
 						*  The topic
@@ -281,8 +282,6 @@ struct Channel {
   char               chname[1];	   /**< Dynamically allocated string of the 
 				     * channel name
 				     */
-
-  unsigned int	     marker;    /** Channel marker */
 };
 
 /** Information about a /list in progress */
@@ -451,6 +450,8 @@ extern struct Ban *make_ban(const char *banstr);
 extern struct Ban *find_ban(struct Client *cptr, struct Ban *banlist);
 extern int apply_ban(struct Ban **banlist, struct Ban *newban, int free);
 extern void free_ban(struct Ban *ban);
+
+extern int SetAutoChanModes(struct Channel *chptr);
 
 extern int common_chan_count(struct Client *a, struct Client *b, int max);
 

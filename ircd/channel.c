@@ -1264,6 +1264,11 @@ struct Channel *get_channel(struct Client *cptr, char *chname, ChannelGetType fl
     chptr->prev = NULL;
     chptr->next = GlobalChannelList;
     chptr->creationtime = MyUser(cptr) ? TStime() : (time_t) 0;
+
+    if (feature_bool(FEAT_AUTOCHANMODES) && feature_str(FEAT_AUTOCHANMODES_LIST) &&
+        (strlen(feature_str(FEAT_AUTOCHANMODES_LIST)) > 0) && MyUser(cptr))
+      SetAutoChanModes(chptr);
+
     GlobalChannelList = chptr;
     hAddChannel(chptr);
   }
@@ -2544,6 +2549,47 @@ mode_parse_upass(struct ParseState *state, int *flag_p)
   }
 }
 
+int SetAutoChanModes(struct Channel *chptr)
+{
+  static int chan_flags[] = {
+    MODE_PRIVATE,	'p',
+    MODE_SECRET,	's',
+    MODE_MODERATED,	'm',
+    MODE_TOPICLIMIT,	't',
+    MODE_INVITEONLY,	'i',
+    MODE_NOPRIVMSGS,	'n',
+    MODE_REGONLY,	'r'
+  };
+  unsigned int *flag_p;
+  unsigned int t_mode;
+  const char *modestr;
+
+  t_mode = 0;
+  assert(0 != chptr);
+
+  if (!feature_bool(FEAT_AUTOCHANMODES) || !feature_str(FEAT_AUTOCHANMODES_LIST) ||
+      strlen(feature_str(FEAT_AUTOCHANMODES_LIST)) <= 1)
+    return 0;
+
+  modestr = feature_str(FEAT_AUTOCHANMODES_LIST);
+
+  for (; *modestr; modestr++)
+  {
+    for (flag_p = (unsigned int*)chan_flags; flag_p[0]; flag_p += 2)
+      if (flag_p[1] == *modestr)
+        break;
+    if (!flag_p[0])
+      continue;
+
+    t_mode |= flag_p[0];
+  }
+
+  if (t_mode != 0)
+    chptr->mode.mode = t_mode;
+
+  return 0;
+}
+
 /*
  * Helper function to convert admin passes
  */
@@ -3567,6 +3613,8 @@ int
 joinbuf_flush(struct JoinBuf *jbuf)
 {
   char chanlist[BUFSIZE];
+  char *name;
+  char *p = 0;
   int chanlist_i = 0;
   int i;
 
@@ -3595,6 +3643,17 @@ joinbuf_flush(struct JoinBuf *jbuf)
   case JOINBUF_TYPE_CREATE:
     sendcmdto_serv_butone(jbuf->jb_source, CMD_CREATE, jbuf->jb_connect,
 			  "%s %Tu", chanlist, jbuf->jb_create);
+
+    if (feature_bool(FEAT_AUTOCHANMODES) && feature_str(FEAT_AUTOCHANMODES_LIST)
+        && strlen(feature_str(FEAT_AUTOCHANMODES_LIST)) > 0) {
+      for (name = ircd_strtok(&p, chanlist, ","); name; name = ircd_strtok(&p, 0, ","))
+      {
+        if (!IsLocalChannel(name))
+          sendcmdto_serv_butone(&me, CMD_MODE, jbuf->jb_connect, "%s +%s", name,
+                                feature_str(FEAT_AUTOCHANMODES_LIST));
+      }
+    }
+
     break;
 
   case JOINBUF_TYPE_PART:
